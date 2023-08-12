@@ -1,60 +1,68 @@
-import pyttsx3
+from gtts import gTTS
 import time
+from playsound import playsound
+import os
+import glob
 
 def read_guided_meditation(meditation_text):
-    # Initialize the TTS engine
-    engine = pyttsx3.init()
     
+    # Clean up any existing .mp3 files from previous runs
+    existing_files = glob.glob("temp_*.mp3")
+    for audio_file in existing_files:
+        try:
+            os.remove(audio_file)
+        except OSError as e:
+            print(f"Error deleting {audio_file}: {e}")
+
     # Split the input by lines
-    meditation_lines = meditation_text.strip().split("\n")
+    meditation_lines = [line for line in meditation_text.strip().split("\n") if " - " in line]
 
     last_timestamp = 0
     start_time = None  # To track the start of the meditation
 
-    # Iterate through the meditation lines two at a time (timestamp + content)
-    for i in range(0, len(meditation_lines), 2):
+    file_counter = 0
 
-        # If the current line has a timestamp format
-        if ":" in meditation_lines[i]:
-            timestamp_str = meditation_lines[i]
-            content = meditation_lines[i + 1]
+    # Pre-generate the first line
+    _, content = meditation_lines[0].split(" - ")
+    filename_next = f"temp_{file_counter}.mp3"
+    gTTS(text=content, lang='en').save(filename_next)
 
-            minutes, seconds = map(int, timestamp_str.split(":"))
-            timestamp = minutes * 60 + seconds
+    for i in range(len(meditation_lines)):
+        line = meditation_lines[i]
+        
+        timestamp_str, content = line.split(" - ")
+        minutes, seconds = map(int, timestamp_str.split(":"))
+        timestamp = minutes * 60 + seconds
+        
+        filename_current = filename_next
+        file_counter += 1
 
-            # Calculate delay
-            sleep_time = timestamp - last_timestamp
-            if sleep_time > 0:
-                time.sleep(sleep_time)
+        # Generate next line if it exists
+        if i + 1 < len(meditation_lines):
+            _, next_content = meditation_lines[i + 1].split(" - ")
+            filename_next = f"temp_{file_counter}.mp3"
+            gTTS(text=next_content, lang='en').save(filename_next)
 
-            # Start the timer just before reading the first line
-            if start_time is None:
-                start_time = time.time()
+        # Start the timer if not started
+        if not start_time:
+            start_time = time.time()
 
-            # Print the internal timer time right before the TTS voice speaks
+        # Check internal timer against timestamp
+        elapsed_time = time.time() - start_time
+        while elapsed_time < timestamp:
+            time.sleep(0.1)
             elapsed_time = time.time() - start_time
-            print(f"Internal Timer: {elapsed_time:.2f} seconds")
 
-            # Read out the content
-            time.sleep(0.2)  # Introducing a small delay here
-            engine.say(content)
-            engine.runAndWait()
+        print(f"Internal Timer: {elapsed_time:.2f} seconds")
 
-            # Update last_timestamp
-            last_timestamp = timestamp
+        # Play the sound
+        playsound(filename_current)
+        os.remove(filename_current)
 
-        # Read any lines without a timestamp (concluding lines or other instructions)
-        else:
-            content = meditation_lines[i]
-            # Print the internal timer time right before the TTS voice speaks
-            elapsed_time = time.time() - start_time
-            print(f"Internal Timer: {elapsed_time:.2f} seconds")
-            
-            time.sleep(0.2)  # Introducing a small delay here
-            engine.say(content)
-            engine.runAndWait()
+        last_timestamp = timestamp
 
-    # Calculate and print the total duration
     end_time = time.time()
     duration = end_time - start_time
     print(f"Meditation took {duration:.2f} seconds.")
+
+
