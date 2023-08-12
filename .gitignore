@@ -1,2 +1,5 @@
 # Configuration files
 .env
+
+# Virtual environment
+medenv/
