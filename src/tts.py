@@ -1,24 +1,24 @@
-from gtts import gTTS
 import time
-from playsound import playsound
-import os
-import glob
+import pyttsx3
 
 
 class MeditationPlayer:
     def __init__(self):
         self.last_timestamp = 0
         self.start_time = None
-        self.file_counter = 0
+        self.engine = pyttsx3.init()
+        self.adjust_rate_volume()
+    
+    def adjust_rate_volume(self):
+        # Adjust rate
+        rate = self.engine.getProperty('rate')
+        new_rate = rate - 50  
+        self.engine.setProperty('rate', new_rate)
 
-    def _cleanup_audio_files(self):
-        """Remove temporary audio files."""
-        existing_files = glob.glob("temp_*.mp3")
-        for audio_file in existing_files:
-            try:
-                os.remove(audio_file)
-            except OSError as e:
-                print(f"Error deleting {audio_file}: {e}")
+        # Adjust volume
+        volume = self.engine.getProperty('volume')
+        new_volume = volume - 0.2 
+        self.engine.setProperty('volume', new_volume)
 
     def _split_lines(self, meditation_text):
         """Split the meditation text into actionable lines."""
@@ -30,32 +30,13 @@ class MeditationPlayer:
         minutes, seconds = map(int, timestamp_str.split(":"))
         return minutes * 60 + seconds
 
-    def _generate_audio(self, content):
-        """Generate audio file from text."""
-        filename = f"temp_{self.file_counter}.mp3"
-        gTTS(text=content, lang='en').save(filename)
-        self.file_counter += 1
-        return filename
-
     def play_meditation(self, meditation_text):
-        self._cleanup_audio_files()
         meditation_lines = self._split_lines(meditation_text)
-
-        # Pre-generate the first line
-        _, content = meditation_lines[0].split(" - ")
-        filename_next = self._generate_audio(content)
 
         for i in range(len(meditation_lines)):
             line = meditation_lines[i]
             timestamp = self._get_timestamp(line)
             _, content = line.split(" - ")
-
-            filename_current = filename_next
-
-            # Generate next line if it exists
-            if i + 1 < len(meditation_lines):
-                _, next_content = meditation_lines[i + 1].split(" - ")
-                filename_next = self._generate_audio(next_content)
 
             # Start the timer if not started
             if not self.start_time:
@@ -69,15 +50,13 @@ class MeditationPlayer:
 
             print(f"Internal Timer: {elapsed_time:.2f} seconds")
 
-            # Play the sound
-            playsound(filename_current)
-            os.remove(filename_current)
+            # Use pyttsx3 to say the content
+            self.engine.say(content)
+            self.engine.runAndWait()
 
             self.last_timestamp = timestamp
 
         end_time = time.time()
         duration = end_time - self.start_time
         print(f"Meditation took {duration:.2f} seconds.")
-
-
 
