@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meditation App</title>
+</head>
+<body>
+
+    <h1>Welcome to the Meditation App</h1>
+    
+    <form id="meditationForm">
+        <label for="length_minutes">Length of meditation (in minutes):</label>
+        <input type="number" id="length_minutes" name="length_minutes" required>
+        
+        <label for="focus_choice">Select your focus:</label>
+        <select id="focus_choice" name="focus_choice" required>
+            <option value="stress">Stress</option>
+            <option value="relationships">Relationships</option>
+            <option value="stoicism">Stoicism</option>
+            <option value="buddhism">Buddhism</option>
+            <!-- Add other options as necessary -->
+        </select>
+
+        <label for="method_choice">Select your meditation method:</label>
+        <select id="method_choice" name="method_choice">
+            <option value="none" selected>None</option>
+            <option value="body_scan">Body Scan</option>
+            <option value="visualization">Visualization</option>
+            <option value="breathing">Breathing</option>
+            <option value="guided_journey">Guided Journey</option>
+        </select>
+        
+        <input type="submit" value="Generate Meditation">
+    </form>
+    <button id="playMeditation" disabled>Play Meditation</button>
+
+    <!-- Include the main JavaScript file -->
+    <script src="static/js/main.js"></script>
+
+</body>
+</html>
