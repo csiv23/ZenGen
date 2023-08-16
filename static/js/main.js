@@ -6,7 +6,24 @@ class MeditationPlayer {
     }
 
     splitLines(meditationText) {
-        return meditationText.split("\n").filter(line => line.includes(" - "));
+        const lines = meditationText.split("\n");
+        const validLines = [];
+    
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+    
+            // Check if line contains a timestamp
+            if (line.includes(" - ") && line.includes(":")) {
+                validLines.push(line);
+    
+                // If the next line doesn't contain a timestamp, break out of the loop
+                if (i + 1 < lines.length && (!lines[i + 1].includes(" - ") || !lines[i + 1].includes(":"))) {
+                    break;
+                }
+            }
+        }
+    
+        return validLines;
     }
 
     getTimestamp(line) {

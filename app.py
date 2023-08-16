@@ -18,14 +18,12 @@ def generate_meditation():
         # Print the received data
         print("Received data: ")
         print(request.form)
-        print("haha")
 
-        length_minutes = int(request.form['length_minutes'])
-        
+        length_choice = request.form['length_choice']
         focus_choice = request.form['focus_choice']
         method_choice = request.form['method_choice']
         
-        meditation_text = generate_meditation_text(length_minutes, focus_choice, method_choice)
+        meditation_text = generate_meditation_text(length_choice, focus_choice, method_choice)
         print(meditation_text)  
         
         return jsonify({"success": True, "meditation_text": meditation_text})

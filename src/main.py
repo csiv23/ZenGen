@@ -42,17 +42,17 @@ def get_multiple_choices(category, max_choices=3):
 
 def get_user_input():
     # Get meditation length
-    length_minutes = int(input("Enter the desired length of meditation (in minutes): "))
+    length_choice = input("Enter the desired length of meditation (in minutes): ")
 
     # Get user's selected focus and methods
     focus, method = get_multiple_choices("focus"), get_multiple_choices("method")
 
-    return length_minutes, focus, method
+    return length_choice, focus, method
 
 
-def generate_meditation_text(length_minutes, focus, method):
+def generate_meditation_text(length_choice, focus, method):
     """
     Generate a meditation text based on user inputs.
     """
-    meditation_text = generate_meditation_prompt(length_minutes, focus, method)
+    meditation_text = generate_meditation_prompt(length_choice, focus, method)
     return meditation_text
