@@ -1,5 +1,5 @@
-from .tts import MeditationPlayer
-from .gpt_api import generate_meditation_prompt
+from tts import MeditationPlayer
+from gpt_api import generate_meditation_prompt
 
 
 def get_multiple_choices(category, max_choices=3):

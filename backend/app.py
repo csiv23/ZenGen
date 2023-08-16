@@ -1,7 +1,9 @@
-from flask import Flask, request, render_template, jsonify
-from src.main import generate_meditation_text
+from flask import Flask, request, render_template, jsonify, send_from_directory
+from flask_cors import CORS
+from main import generate_meditation_text
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def index():
@@ -11,11 +13,9 @@ def index():
 def test_route():
     return "Test route is working!"
 
-
 @app.route('/generate_meditation', methods=['POST'])
 def generate_meditation():
     try:
-        # Print the received data
         print("Received data: ")
         print(request.form)
 
@@ -31,6 +31,14 @@ def generate_meditation():
     except Exception as e:
         return jsonify({"success": False, "error": str(e)})
 
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    return send_from_directory('frontend/build', 'index.html')
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('frontend/build', filename)
 
 if __name__ == '__main__':
     app.run(debug=True)
