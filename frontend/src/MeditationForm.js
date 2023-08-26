@@ -1,34 +1,24 @@
 import React from 'react';
+import LengthChoice from './choices/LengthChoice';
+import FocusChoice from './choices/FocusChoice';
+import MethodChoice from './choices/MethodChoice';
 
-function MeditationForm({ lengthChoice, setLengthChoice, focusChoice, setFocusChoice, methodChoice, setMethodChoice, handleSubmit }) {
+function MeditationForm(props) {
     return (
-        <form onSubmit={handleSubmit}>
-            <label>
-                Length of meditation:
-                <select value={lengthChoice} onChange={e => setLengthChoice(e.target.value)}>
-                    <option value="short">Short (2-3 min)</option>
-                    <option value="medium">Medium (3-5 min)</option>
-                    <option value="long">Long (10 min)</option>
-                </select>
-            </label>
-            <label>
-                Select your focus:
-                <select value={focusChoice} onChange={e => setFocusChoice(e.target.value)}>
-                    <option value="stress">Stress</option>
-                    <option value="relationships">Relationships</option>
-                    <option value="stoicism">Stoicism</option>
-                    <option value="buddhism">Buddhism</option>                    </select>
-            </label>
-            <label>
-                Select your meditation method:
-                <select value={methodChoice} onChange={e => setMethodChoice(e.target.value)}>
-                    <option value="none">None</option>
-                    <option value="body_scan">Body Scan</option>
-                    <option value="visualization">Visualization</option>
-                    <option value="breathing">Breathing</option>
-                    <option value="guided_journey">Guided Journey</option>          </select>
-            </label>
-            <input type="submit" value="Generate Meditation" />
+        <form onSubmit={props.handleSubmit}>
+            <LengthChoice 
+                lengthChoice={props.lengthChoice}
+                setLengthChoice={props.setLengthChoice} 
+            />
+            <FocusChoice 
+                focusChoice={props.focusChoice}
+                setFocusChoice={props.setFocusChoice}
+            />
+            <MethodChoice 
+                methodChoice={props.methodChoice}
+                setMethodChoice={props.setMethodChoice}
+            />
+            <button type="submit">Generate Meditation</button>
         </form>
     );
 }

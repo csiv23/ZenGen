@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import MeditationPlayer from './MeditationPlayer';
-import MeditationForm from './MeditationForm';
+import MultiStepForm from './MultiStepForm';
 
 window.onbeforeunload = function() {
   window.speechSynthesis.cancel();
@@ -28,7 +28,7 @@ function App() {
 };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     const formData = new URLSearchParams({
       length_choice: lengthChoice,
       focus_choice: focusChoice,
@@ -73,7 +73,7 @@ function App() {
 return (
   <div className="app-container">
     <h1>Welcome to the Meditation App</h1>
-    <MeditationForm
+    <MultiStepForm
       lengthChoice={lengthChoice}
       setLengthChoice={setLengthChoice}
       focusChoice={focusChoice}
@@ -85,7 +85,7 @@ return (
     <button onClick={handleTogglePlay} disabled={!meditationText}>
       {isPlaying ? 'Pause Meditation' : 'Play Meditation'}
     </button>
-    
+  
     {/* Toast Message */}
     {toastMessage && (
       <div className="toast">
