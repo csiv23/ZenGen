@@ -24,7 +24,7 @@ class MeditationPlayer {
         utterance.onend = callback; // Assign the callback function to the onend event
         window.speechSynthesis.speak(utterance);
     }
-
+    
     playMeditation(meditationText) {
         const meditationLines = this.splitLines(meditationText);
 
@@ -46,6 +46,19 @@ class MeditationPlayer {
         }
 
         playLine(0);  // Start with the first line.
+    }
+
+
+    pauseMeditation() {
+        if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.pause();
+        }
+    }
+
+    resumeMeditation() {
+        if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+        }
     }
 }
 

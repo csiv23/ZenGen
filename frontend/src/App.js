@@ -10,8 +10,10 @@ function App() {
   const [focusChoice, setFocusChoice] = useState('stress');
   const [methodChoice, setMethodChoice] = useState('none');
   const [meditationText, setMeditationText] = useState('');
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  const player = useRef(new MeditationPlayer()); // Use useRef to persist the player instance across re-renders
+
+  const player = useRef(new MeditationPlayer());
 
 
   const handleSubmit = (e) => {
@@ -40,9 +42,20 @@ function App() {
       });
   };
 
-  const handlePlay = () => {
-    player.current.playMeditation(meditationText);
+  const handleTogglePlay = () => {
+    if (isPlaying) {
+      player.current.pauseMeditation();
+    } else {
+      if (window.speechSynthesis.paused) {
+        player.current.resumeMeditation();
+      } else {
+        player.current.playMeditation(meditationText);
+      }
+    }
+    setIsPlaying(!isPlaying);  // Toggle the play state
   };
+
+
 
   return (
     <div className="app-container">
@@ -56,9 +69,10 @@ function App() {
         setMethodChoice={setMethodChoice}
         handleSubmit={handleSubmit}
       />
-      <button onClick={handlePlay} disabled={!meditationText}>
-        Play Meditation
+      <button onClick={handleTogglePlay} disabled={!meditationText}>
+        {isPlaying ? 'Pause Meditation' : 'Play Meditation'}
       </button>
+
     </div>
   );
 }
