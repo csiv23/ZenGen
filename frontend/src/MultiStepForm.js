@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import LengthChoice from './choices/LengthChoice';
 import FocusChoice from './choices/FocusChoice';
 import MethodChoice from './choices/MethodChoice';
+import NavigationButtons from './NavigationButtons';
 
 function MultiStepForm(props) {
     const [currentStep, setCurrentStep] = useState(1);
@@ -14,7 +15,6 @@ function MultiStepForm(props) {
             setCurrentStep(4);  // move to "Generating Meditation..." screen
         }
     };
-
 
     const prevStep = () => {
         if (currentStep > 1) setCurrentStep(currentStep - 1);
@@ -47,16 +47,14 @@ function MultiStepForm(props) {
 
             {currentStep === 5 && <div>Play Meditation screen placeholder</div>}
 
-            <div className="button-container">
-                {currentStep > 1 && currentStep !== 4 && (
-                    <button onClick={prevStep}>Previous</button>
-                )}
-                {(currentStep < 4) && (
-                    <button onClick={nextStep}>
-                        {currentStep < 3 ? 'Next' : 'Submit'}
-                    </button>
-                )}
-            </div>
+            {(currentStep !== 4) && (
+                <NavigationButtons 
+                    onPrevious={prevStep} 
+                    onNext={nextStep} 
+                    showPrevious={currentStep > 1} 
+                    nextLabel={currentStep < 3 ? 'Next' : 'Submit'}
+                />
+            )}
         </div>
     );
 }

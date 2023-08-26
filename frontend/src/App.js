@@ -2,6 +2,9 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import MeditationPlayer from './MeditationPlayer';
 import MultiStepForm from './MultiStepForm';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./App.css";
+
 
 window.onbeforeunload = function () {
   window.speechSynthesis.cancel();
@@ -71,7 +74,6 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1>Welcome to the Meditation App</h1>
       {meditationText ? (
         <button onClick={handleTogglePlay}>
           {isPlaying ? 'Pause Meditation' : 'Play Meditation'}

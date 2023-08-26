@@ -1,3 +1,9 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* This ensures that .app-container can take up full viewport height */
+}
+
 .App {
   text-align: center;
 }
@@ -10,6 +16,20 @@
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+
+
+@media screen and (min-width: 300px) { /* Example breakpoint for tablets and desktops */
+  body, html {
+    font-size: 24px; /* This will scale everything up by 25% compared to the default */
+  }
+}
+
+@media screen and (min-width: 1200px) { /* Example breakpoint for large desktops */
+  body, html {
+    font-size: 28px; /* This will scale everything up by 50% compared to the default */
   }
 }
 
@@ -27,6 +47,26 @@
 .App-link {
   color: #61dafb;
 }
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  flex-direction: column;
+  transform: translateY(-10%);
+
+}
+
+body, h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
 
 @keyframes App-logo-spin {
   from {

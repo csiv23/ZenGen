@@ -1,44 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import '../FocusChoice.css'; // For custom styles
 
 function FocusChoice({ focusChoice, setFocusChoice }) {
-    const [selectedOption, setSelectedOption] = useState(focusChoice);
-    const [otherText, setOtherText] = useState('');
+    const options = ["stress", "relaxation", "concentration"];
+    const [otherValue, setOtherValue] = useState("");  // To hold the value of the "other..." input
 
-    useEffect(() => {
-        // Update parent state when local states change
-        if (selectedOption === 'other') {
-            setFocusChoice(otherText);
-        } else {
-            setFocusChoice(selectedOption);
-        }
-    }, [selectedOption, otherText]);
+    // Function to handle the change in "other..." input
+    const handleOtherChange = (event) => {
+        const value = event.target.value;
+        setOtherValue(value);
+        setFocusChoice(value);
+    };
 
     return (
-        <div>
-            <label htmlFor="focusChoice">Focus of Meditation:</label>
-            <select
-                id="focusChoice"
-                value={selectedOption}
-                onChange={e => setSelectedOption(e.target.value)}
-            >
-                <option value="stress">Stress</option>
-                <option value="relaxation">Relaxation</option>
-                <option value="concentration">Concentration</option>
-                <option value="other">Other</option>
-            </select>
-
-            {selectedOption === 'other' && (
-                <div>
-                    <label htmlFor="otherChoice">Specify:</label>
-                    <input
-                        type="text"
-                        id="otherChoice"
-                        value={otherText}
-                        onChange={e => setOtherText(e.target.value)}
-                        placeholder="Enter your focus"
-                    />
-                </div>
-            )}
+        <div className="d-flex flex-column justify-content-center align-items-center">
+            <p className="mb-3">Focus of Meditation:</p>
+            <div className="btn-group-vertical">
+                {options.map(option => (
+                    <button
+                        key={option}
+                        type="button"
+                        className={`btn btn-light length-btn ${focusChoice === option ? 'active' : ''}`}
+                        onClick={() => setFocusChoice(option)}
+                    >
+                        {option.charAt(0).toUpperCase() + option.slice(1)}
+                    </button>
+                ))}
+                <input 
+                    type="text" 
+                    placeholder="Other..." 
+                    value={otherValue}
+                    onChange={handleOtherChange} 
+                    className="form-control mt-2"  // Using Bootstrap's form-control class for styling
+                />
+            </div>
         </div>
     );
 }

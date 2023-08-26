@@ -1,0 +1,11 @@
+.focus-btn {
+    margin: 5px 0;
+    transition: background-color 0.3s ease;
+}
+
+.focus-btn.active {
+    background-color: #6c757d;  /* Grey color */
+    color: white;
+}
+
+/* Add any custom animation or transition styles as required */
