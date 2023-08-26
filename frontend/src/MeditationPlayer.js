@@ -24,7 +24,7 @@ class MeditationPlayer {
         utterance.onend = callback; // Assign the callback function to the onend event
         window.speechSynthesis.speak(utterance);
     }
-    
+
     playMeditation(meditationText) {
         const meditationLines = this.splitLines(meditationText);
 

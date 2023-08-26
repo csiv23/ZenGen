@@ -3,6 +3,9 @@ import axios from 'axios';
 import MeditationPlayer from './MeditationPlayer';
 import MeditationForm from './MeditationForm';
 
+window.onbeforeunload = function() {
+  window.speechSynthesis.cancel();
+}
 
 
 function App() {
@@ -11,10 +14,18 @@ function App() {
   const [methodChoice, setMethodChoice] = useState('none');
   const [meditationText, setMeditationText] = useState('');
   const [isPlaying, setIsPlaying] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
 
 
   const player = useRef(new MeditationPlayer());
 
+  const showToast = (message) => {
+    setToastMessage(message);
+    setTimeout(() => {
+      setToastMessage("");
+    }, 1000); // The toast will disappear after 1 second
+};
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,6 +56,7 @@ function App() {
   const handleTogglePlay = () => {
     if (isPlaying) {
       player.current.pauseMeditation();
+      showToast("Pausing..."); // Show the toast notification
     } else {
       if (window.speechSynthesis.paused) {
         player.current.resumeMeditation();
@@ -53,28 +65,36 @@ function App() {
       }
     }
     setIsPlaying(!isPlaying);  // Toggle the play state
-  };
+};
 
 
 
-  return (
-    <div className="app-container">
-      <h1>Welcome to the Meditation App</h1>
-      <MeditationForm
-        lengthChoice={lengthChoice}
-        setLengthChoice={setLengthChoice}
-        focusChoice={focusChoice}
-        setFocusChoice={setFocusChoice}
-        methodChoice={methodChoice}
-        setMethodChoice={setMethodChoice}
-        handleSubmit={handleSubmit}
-      />
-      <button onClick={handleTogglePlay} disabled={!meditationText}>
-        {isPlaying ? 'Pause Meditation' : 'Play Meditation'}
-      </button>
 
-    </div>
-  );
+return (
+  <div className="app-container">
+    <h1>Welcome to the Meditation App</h1>
+    <MeditationForm
+      lengthChoice={lengthChoice}
+      setLengthChoice={setLengthChoice}
+      focusChoice={focusChoice}
+      setFocusChoice={setFocusChoice}
+      methodChoice={methodChoice}
+      setMethodChoice={setMethodChoice}
+      handleSubmit={handleSubmit}
+    />
+    <button onClick={handleTogglePlay} disabled={!meditationText}>
+      {isPlaying ? 'Pause Meditation' : 'Play Meditation'}
+    </button>
+    
+    {/* Toast Message */}
+    {toastMessage && (
+      <div className="toast">
+        {toastMessage}
+      </div>
+    )}
+  </div>
+);
+
 }
 
 export default App;
