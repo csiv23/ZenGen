@@ -3,7 +3,7 @@ import axios from 'axios';
 import MeditationPlayer from './MeditationPlayer';
 import MultiStepForm from './MultiStepForm';
 
-window.onbeforeunload = function() {
+window.onbeforeunload = function () {
   window.speechSynthesis.cancel();
 }
 
@@ -25,10 +25,11 @@ function App() {
     setTimeout(() => {
       setToastMessage("");
     }, 1000); // The toast will disappear after 1 second
-};
+  };
 
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
+
     const formData = new URLSearchParams({
       length_choice: lengthChoice,
       focus_choice: focusChoice,
@@ -65,35 +66,38 @@ function App() {
       }
     }
     setIsPlaying(!isPlaying);  // Toggle the play state
-};
+  };
 
 
+  return (
+    <div className="app-container">
+      <h1>Welcome to the Meditation App</h1>
+      {meditationText ? (
+        <button onClick={handleTogglePlay}>
+          {isPlaying ? 'Pause Meditation' : 'Play Meditation'}
+        </button>
+      ) : (
+        <MultiStepForm
+          lengthChoice={lengthChoice}
+          setLengthChoice={setLengthChoice}
+          focusChoice={focusChoice}
+          setFocusChoice={setFocusChoice}
+          methodChoice={methodChoice}
+          setMethodChoice={setMethodChoice}
+          meditationGenerated={!!meditationText}
+          handleSubmit={handleSubmit}
+        />
 
+      )}
 
-return (
-  <div className="app-container">
-    <h1>Welcome to the Meditation App</h1>
-    <MultiStepForm
-      lengthChoice={lengthChoice}
-      setLengthChoice={setLengthChoice}
-      focusChoice={focusChoice}
-      setFocusChoice={setFocusChoice}
-      methodChoice={methodChoice}
-      setMethodChoice={setMethodChoice}
-      handleSubmit={handleSubmit}
-    />
-    <button onClick={handleTogglePlay} disabled={!meditationText}>
-      {isPlaying ? 'Pause Meditation' : 'Play Meditation'}
-    </button>
-  
-    {/* Toast Message */}
-    {toastMessage && (
-      <div className="toast">
-        {toastMessage}
-      </div>
-    )}
-  </div>
-);
+      {/* Toast Message */}
+      {toastMessage && (
+        <div className="toast">
+          {toastMessage}
+        </div>
+      )}
+    </div>
+  );
 
 }
 

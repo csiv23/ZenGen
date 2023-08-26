@@ -9,8 +9,9 @@ function MultiStepForm(props) {
     const nextStep = () => {
         if (currentStep < 3) {
             setCurrentStep(currentStep + 1);
-        } else {
+        } else if (currentStep === 3) {
             props.handleSubmit();
+            setCurrentStep(4);  // move to "Generating Meditation..." screen
         }
     };
 
@@ -42,11 +43,19 @@ function MultiStepForm(props) {
                 />
             )}
 
-            <div>
-                {currentStep > 1 && <button onClick={prevStep}>Previous</button>}
-                <button onClick={nextStep}>
-                    {currentStep < 3 ? 'Next' : 'Generate Meditation'}
-                </button>
+            {currentStep === 4 && <div>Generating Meditation...</div>}
+
+            {currentStep === 5 && <div>Play Meditation screen placeholder</div>}
+
+            <div className="button-container">
+                {currentStep > 1 && currentStep !== 4 && (
+                    <button onClick={prevStep}>Previous</button>
+                )}
+                {(currentStep < 4) && (
+                    <button onClick={nextStep}>
+                        {currentStep < 3 ? 'Next' : 'Submit'}
+                    </button>
+                )}
             </div>
         </div>
     );
