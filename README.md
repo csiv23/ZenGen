@@ -1,12 +1,19 @@
 # ZenGen - Customized Meditation App
 
+![ZenGen App Screenshot](./images/intropage.png)
+
 Welcome to [ZenGen](https://zengen.netlify.app/), a unique meditation app that empowers you to shape meditation sessions tailored to your preferences. Through a sleek and intuitive interface, ZenGen provides a personalized meditation experience, harnessing Text-to-Speech technology to offer real-time guidance based on your choices.
 
 ## Features
 
-- **Customizable Sessions**: Effortlessly adjust meditation experiences based on focus, method, and duration.
-- **Guided Meditation**: Leverage Text-to-Speech for insightful real-time guidance during sessions.
-- **Responsive Design**: Designed with care to ensure a seamless experience on both mobile devices and desktops.
+- **Personalized Meditations**: Create your own meditation experience by selecting the desired length, focus, and method, tailoring each session to your unique preferences.
+  
+- **Dynamic Content Generation**: Once you've set your meditation preferences, ZenGen communicates with ChatGPT to generate a meditation script tailored to your choices.
+  
+- **In-Browser Playback**: Listen to your personalized meditation right in your browser with integrated Text-to-Speech technology, providing a seamless guided experience.
+  
+- **Cross-Platform Compatibility**: ZenGen is designed for a consistent and user-friendly experience whether you're using a desktop or iOS devices, allowing you to meditate wherever you are.
+
 
 ## Technologies Used
 
