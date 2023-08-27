@@ -25,7 +25,7 @@ playsound==1.2.2
 pygame==2.5.0
 pypiwin32==223
 python-decouple==3.8
-python-dotenv==1.0.0
+python-dotenv==0.21.1
 pyttsx3==2.90
 pywin32==306
 requests==2.31.0
