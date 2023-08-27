@@ -16,6 +16,12 @@ FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:3000")
 # Configure CORS for the app
 CORS(app, resources={r"/*": {"origins": FRONTEND_URL}})
 
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = os.environ.get("FRONTEND_URL", "http://localhost:3000")
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
+    response.headers['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,OPTIONS'
+    return response
 
 @app.route("/")
 def index():
