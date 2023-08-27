@@ -30,5 +30,5 @@ pyttsx3==2.90
 requests==2.31.0
 tqdm==4.66.1
 urllib3==2.0.4
-Werkzeug==2.3.6
+Werkzeug==2.2.3
 yarl==1.9.2
