@@ -1,6 +1,6 @@
 # ZenGen - Customized Meditation App
 
-Welcome to ZenGen, a unique meditation app that empowers you to shape meditation sessions tailored to your preferences. Through a sleek and intuitive interface, ZenGen provides a personalized meditation experience, harnessing Text-to-Speech technology to offer real-time guidance based on your choices.
+Welcome to [ZenGen](https://zengen.netlify.app/), a unique meditation app that empowers you to shape meditation sessions tailored to your preferences. Through a sleek and intuitive interface, ZenGen provides a personalized meditation experience, harnessing Text-to-Speech technology to offer real-time guidance based on your choices.
 
 ## Features
 
@@ -67,4 +67,3 @@ Your contributions are always welcome! Here's how you can contribute:
 ### License
 
 ZenGen is licensed under the MIT License. For detailed information, check the [LICENSE.md](LICENSE.md) file. 
-
