@@ -6,6 +6,8 @@ import MultiStepForm from './components/MultiStepForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000'; // Fallback to localhost if the variable is not set
+
 
 window.onbeforeunload = function () {
   window.speechSynthesis.cancel();
@@ -28,16 +30,16 @@ function App() {
   const handleRestart = () => {
     setMeditationText(''); // Clear the generated meditation text
     setIsPlaying(false);   // Ensure the player is not playing
-    
+
     // Cancel any ongoing speech
     window.speechSynthesis.cancel();
-  
+
     // Reset form defaults
     setLengthChoice('short');
     setFocusChoice('stress');
     setMethodChoice('none');
   };
-  
+
 
 
   const showToast = (message) => {
@@ -59,7 +61,7 @@ function App() {
       focus_choice: focusChoice,
       method_choice: methodChoice
     });
-    axios.post('http://localhost:5000/generate_meditation', formData.toString(), {
+    axios.post(`${BACKEND_URL}/generate_meditation`, formData.toString(), {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
