@@ -18,14 +18,14 @@ Welcome to ZenGen, a unique meditation app that empowers you to shape meditation
 
 ### Prerequisites
 
-- Node.js (version X.X.X or higher) <!-- Replace X.X.X with your required node version -->
-- npm (version X.X.X or higher)
+- Node.js (version 16.0.0 or higher) 
+- npm (version 9.0.0 or higher)
 
 ### Installation and Setup
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/YourGitHubUsername/ZenGen.git
+    git clone https://github.com/csiv23/ZenGen.git
     ```
 
 2. **Navigate to the frontend directory**:
