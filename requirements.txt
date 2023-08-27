@@ -9,7 +9,7 @@ click==8.1.6
 colorama==0.4.6
 comtypes==1.2.0
 config==0.5.1
-Flask==2.3.2
+Flask==2.2.5
 Flask-Cors==4.0.0
 frozenlist==1.4.0
 gTTS==2.3.2
