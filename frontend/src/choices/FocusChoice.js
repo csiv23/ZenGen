@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../FocusChoice.css'; // For custom styles
 
 function FocusChoice({ focusChoice, setFocusChoice }) {
-    const options = ["stress", "relaxation", "concentration"];
+    const options = ["stress", "concentration", "relationships"];
     const [otherValue, setOtherValue] = useState("");  // To hold the value of the "other..." input
 
     // Function to handle the change in "other..." input

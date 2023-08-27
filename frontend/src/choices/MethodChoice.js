@@ -2,7 +2,7 @@ import React from 'react';
 import './FocusChoice'; // For custom styles
 
 function MethodChoice({ methodChoice, setMethodChoice }) {
-    const methods = ["none", "guided", "mantra"];
+    const methods = ["Body Scan", "Guided Visualization", "mantra", "none"];
 
     return (
         <div className="d-flex flex-column justify-content-center align-items-center">
@@ -12,7 +12,7 @@ function MethodChoice({ methodChoice, setMethodChoice }) {
                     <button
                         key={method}
                         type="button"
-                        className={`btn btn-light focus-btn ${methodChoice === method ? 'active' : ''}`}
+                        className={`btn btn-light length-btn ${methodChoice === method ? 'active' : ''}`}
                         onClick={() => setMethodChoice(method)}
                     >
                         {method === 'none' ? 'None' : method.charAt(0).toUpperCase() + method.slice(1)}

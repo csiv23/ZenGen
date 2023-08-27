@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
+import IntroPage from './IntroPage';
 import MeditationPlayer from './MeditationPlayer';
 import MultiStepForm from './MultiStepForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,8 +19,7 @@ function App() {
   const [meditationText, setMeditationText] = useState('');
   const [isPlaying, setIsPlaying] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
-
-
+  const[showIntro, setShowIntro] = useState(true);
 
   const player = useRef(new MeditationPlayer());
 
@@ -28,6 +28,10 @@ function App() {
     setTimeout(() => {
       setToastMessage("");
     }, 1000); // The toast will disappear after 1 second
+  };
+
+  const handleIntroProceed = () => {
+    setShowIntro(false);
   };
 
   const handleSubmit = (e) => {
@@ -74,7 +78,9 @@ function App() {
 
   return (
     <div className="app-container">
-      {meditationText ? (
+      {showIntro ? (
+        <IntroPage onProceed={handleIntroProceed} />
+      ) : meditationText ? (
         <button onClick={handleTogglePlay}>
           {isPlaying ? 'Pause Meditation' : 'Play Meditation'}
         </button>
@@ -89,7 +95,6 @@ function App() {
           meditationGenerated={!!meditationText}
           handleSubmit={handleSubmit}
         />
-
       )}
 
       {/* Toast Message */}
@@ -100,7 +105,8 @@ function App() {
       )}
     </div>
   );
-
 }
+
+
 
 export default App;
