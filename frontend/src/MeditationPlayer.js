@@ -10,7 +10,7 @@ class MeditationPlayer {
 
         const initializeVoice = () => {
             this.voices = window.speechSynthesis.getVoices();
-            const preferredVoices = ['Google UK English Female', 'English United Kingdom', 'en-GB', 'en-US']; // Example preferred voices
+            const preferredVoices = ['Google UK English Male', 'English United Kingdom', 'en-GB', 'en-US']; // Example preferred voices
 
             for (const voiceName of preferredVoices) {
                 this.selectedVoice = this.voices.find(voice => voice.name.includes(voiceName));
