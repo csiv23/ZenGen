@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
-import IntroPage from './IntroPage';
+import IntroPage from './components/IntroPage';
 import MeditationPlayer from './MeditationPlayer';
-import MultiStepForm from './MultiStepForm';
+import MultiStepForm from './components/MultiStepForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 

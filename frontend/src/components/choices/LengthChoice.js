@@ -1,5 +1,5 @@
 import React from 'react';
-import '../FocusChoice.css'; // For custom styles
+import '../../styles/FocusChoice.css'; // For custom styles
 
 function LengthChoice({ lengthChoice, setLengthChoice }) {
     const lengths = ["short", "medium", "long"];

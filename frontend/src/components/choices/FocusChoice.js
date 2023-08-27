@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../FocusChoice.css'; // For custom styles
+import '../../styles/FocusChoice.css'; // For custom styles
 
 function FocusChoice({ focusChoice, setFocusChoice }) {
     const options = ["stress", "concentration", "relationships"];
