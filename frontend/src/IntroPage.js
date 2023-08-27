@@ -5,7 +5,10 @@ import NavigationButtons from './NavigationButtons';
 function IntroPage({onProceed}) {
     return (
         <div className="intro-container">
-            <h1>ZenGen</h1>
+            <div className="title-icon-container">
+                <h1>ZenGen</h1>
+                <i className="material-icons">self_improvement</i>
+            </div>
             <p>Shaping Meditation to Fit You.</p>
             <NavigationButtons
                 onNext={onProceed}

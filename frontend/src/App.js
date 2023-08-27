@@ -12,6 +12,8 @@ window.onbeforeunload = function () {
 }
 
 
+
+
 function App() {
   const [lengthChoice, setLengthChoice] = useState('short');
   const [focusChoice, setFocusChoice] = useState('stress');
@@ -19,9 +21,24 @@ function App() {
   const [meditationText, setMeditationText] = useState('');
   const [isPlaying, setIsPlaying] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
-  const[showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(true);
 
   const player = useRef(new MeditationPlayer());
+
+  const handleRestart = () => {
+    setMeditationText(''); // Clear the generated meditation text
+    setIsPlaying(false);   // Ensure the player is not playing
+    
+    // Cancel any ongoing speech
+    window.speechSynthesis.cancel();
+  
+    // Reset form defaults
+    setLengthChoice('short');
+    setFocusChoice('stress');
+    setMethodChoice('none');
+  };
+  
+
 
   const showToast = (message) => {
     setToastMessage(message);
@@ -81,9 +98,15 @@ function App() {
       {showIntro ? (
         <IntroPage onProceed={handleIntroProceed} />
       ) : meditationText ? (
-        <button onClick={handleTogglePlay}>
-          {isPlaying ? 'Pause Meditation' : 'Play Meditation'}
-        </button>
+        <div style={{ textAlign: 'center', padding: '20px 0' }}>
+          <button className="btn btn-primary mb-2" onClick={handleTogglePlay}>
+            {isPlaying ? 'Pause Meditation' : 'Play Meditation'}
+          </button>
+          <br />
+          <button className="btn btn-secondary" onClick={handleRestart}>
+            Restart Form
+          </button>
+        </div>
       ) : (
         <MultiStepForm
           lengthChoice={lengthChoice}
@@ -105,6 +128,7 @@ function App() {
       )}
     </div>
   );
+
 }
 
 

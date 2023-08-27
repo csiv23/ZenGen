@@ -96,3 +96,52 @@ body, h1, h2, h3, h4, h5, h6, p {
   align-items: center;
 }
 
+.spinner {
+  margin: 20px auto 0 auto; /* Vertical margin of 20px on top, horizontally centered */
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.title-icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.material-icons {
+  vertical-align: middle;
+  font-size: 48px; /* adjust as needed */
+  margin-left: 8px; /* spacing between text and icon */
+}
+
+.material-icons {
+  vertical-align: middle;
+  font-size: 48px; /* default size for mobile */
+  margin-left: 8px; /* spacing between text and icon */
+}
+
+@media screen and (min-width: 300px) { 
+  .material-icons {
+      font-size: 48px; /* adjusted size for tablets and desktops */
+  }
+}
+
+@media screen and (min-width: 1200px) { 
+  .material-icons {
+      font-size: 72px; /* adjusted size for large desktops */
+  }
+}
+
+
+
+
+
+

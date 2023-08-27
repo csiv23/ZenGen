@@ -43,15 +43,18 @@ function MultiStepForm(props) {
                 />
             )}
 
-            {currentStep === 4 && <div>Generating Meditation...</div>}
-
-            {currentStep === 5 && <div>Play Meditation screen placeholder</div>}
+            {currentStep === 4 && (
+                <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                    <div>Generating Meditation...</div>
+                    <div className="spinner"></div>
+                </div>
+            )}
 
             {(currentStep !== 4) && (
-                <NavigationButtons 
-                    onPrevious={prevStep} 
-                    onNext={nextStep} 
-                    showPrevious={currentStep > 1} 
+                <NavigationButtons
+                    onPrevious={prevStep}
+                    onNext={nextStep}
+                    showPrevious={currentStep > 1}
                     nextLabel={currentStep < 3 ? 'Next' : 'Submit'}
                 />
             )}

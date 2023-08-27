@@ -1,6 +1,12 @@
 class MeditationPlayer {
     constructor() {
+        this.initPlayer();
+    }
+
+    initPlayer() {
+        this.currentLineIndex = 0;
         this.lastTimestamp = 0;
+        this.timeouts = [];
         this.voices = window.speechSynthesis.getVoices();
         this.selectedVoice = this.voices.find(voice => voice.name === 'Google UK English Female') || this.voices[0];
     }
@@ -19,37 +25,41 @@ class MeditationPlayer {
     speak(content, callback) {
         const utterance = new SpeechSynthesisUtterance(content);
         utterance.voice = this.selectedVoice;
-        utterance.rate = 0.85; // slower pace
-        utterance.pitch = 0.9; // slightly deeper
-        utterance.onend = callback; // Assign the callback function to the onend event
+        utterance.rate = 0.85; 
+        utterance.pitch = 0.9;
+        utterance.onend = callback;
         window.speechSynthesis.speak(utterance);
     }
 
     playMeditation(meditationText) {
-        const meditationLines = this.splitLines(meditationText);
+        if (this.currentLineIndex === 0) {
+            this.meditationLines = this.splitLines(meditationText);
+        }
 
         const playLine = (index) => {
-            if (index >= meditationLines.length) return;
+            if (index >= this.meditationLines.length) return;
 
-            const line = meditationLines[index];
+            const line = this.meditationLines[index];
             const timestamp = this.getTimestamp(line);
             const [, content] = line.split(" - ");
 
             const delay = index === 0 ? 0 : (timestamp - this.lastTimestamp) * 1000;
 
-            setTimeout(() => {
+            const timeout = setTimeout(() => {
                 this.speak(content, () => {
                     this.lastTimestamp = timestamp;
-                    playLine(index + 1); // Play the next line after the current one is done.
+                    this.currentLineIndex = index + 1;
+                    playLine(this.currentLineIndex);
                 });
             }, delay);
+            this.timeouts.push(timeout);
         }
 
-        playLine(0);  // Start with the first line.
+        playLine(this.currentLineIndex);
     }
 
-
     pauseMeditation() {
+        this.timeouts.forEach(clearTimeout);
         if (window.speechSynthesis.speaking) {
             window.speechSynthesis.pause();
         }
@@ -60,7 +70,12 @@ class MeditationPlayer {
             window.speechSynthesis.resume();
         }
     }
+
+    resetPlayer() {
+        this.timeouts.forEach(clearTimeout); // Clear all existing timeouts
+        window.speechSynthesis.cancel(); // Cancel any ongoing speech
+        this.initPlayer();  
+    }
 }
 
 export default MeditationPlayer;
-
