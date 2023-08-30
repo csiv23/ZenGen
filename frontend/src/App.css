@@ -1,8 +1,16 @@
 body, html {
   margin: 0;
   padding: 0;
-  height: 100%; /* This ensures that .app-container can take up full viewport height */
+  height: 100vh; /* This ensures that .app-container can take up full viewport height */
+  max-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
+
+#root {
+  height: 100%;
+}
+
 
 .App {
   text-align: center;
@@ -12,6 +20,8 @@ body, html {
   height: 40vmin;
   pointer-events: none;
 }
+
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -35,7 +45,6 @@ body, html {
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,14 +58,16 @@ body, html {
 }
 
 .app-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  flex-direction: column;
-  transform: translateY(-10%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height:100%;
+}
 
+.app-container.content-visible {
+  transform: translateY(-10%);
+  height:100%;
 }
 
 body, h1, h2, h3, h4, h5, h6, p {
@@ -89,12 +100,7 @@ body, h1, h2, h3, h4, h5, h6, p {
   z-index: 1000; /* Sit on top */
 }
 
-.button-container {
-  height: 60px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
+
 
 .spinner {
   margin: 20px auto 0 auto; /* Vertical margin of 20px on top, horizontally centered */
@@ -164,6 +170,65 @@ body, h1, h2, h3, h4, h5, h6, p {
 
   
 }
+
+.btn-secondary:hover {
+  background-color: #BBDEFB; /* Slightly darker shade of light blue */
+  color: #1E88E5; /* A contrasting dark blue */
+}
+
+/* Flexbox style to center content of the button */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.play-pause-btn {
+  background-color: #00a6ed;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 80px; 
+  width: 75px; 
+  height: 75px;
+  text-align: center;
+  transition: filter 0.3s ease;
+  cursor: pointer;
+  line-height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.play-pause-btn .bi {
+  font-size: 50px; /* Adjust this size as needed */
+  vertical-align: middle; /* This helps center the icons vertically */
+  margin-right: 20px;  /* You might need to adjust this value */
+  display: flex;
+  align-items: center;
+  height: 24px;
+  width: 24px;
+}
+
+.play-pause-btn:focus {
+  outline: none;
+  box-shadow: none;
+  filter: none; /* Reset the filter for focus state */
+}
+
+.play-pause-btn:active {
+  outline: none;
+  box-shadow: none; 
+  filter: brightness(80%); /* 80% brightness */
+}
+
+.play-pause-btn:hover {
+  filter: brightness(80%); /* 80% brightness */
+}
+
+  
 
 .btn-secondary:hover {
   background-color: #BBDEFB; /* Slightly darker shade of light blue */
