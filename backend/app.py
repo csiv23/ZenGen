@@ -9,19 +9,12 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# Retrieve the frontend URL from environment variable
-# (default to 'http://localhost:3000' if not found)
 FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:3000")
 
 # Configure CORS for the app
-CORS(app, resources={r"/*": {"origins": FRONTEND_URL}})
+ALLOWED_ORIGINS = [FRONTEND_URL, "http://localhost:3000"]
+CORS(app, resources={r"/*": {"origins": ALLOWED_ORIGINS}})
 
-@app.after_request
-def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = os.environ.get("FRONTEND_URL", "http://localhost:3000")
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
-    response.headers['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,OPTIONS'
-    return response
 
 @app.route("/")
 def index():

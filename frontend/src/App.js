@@ -101,12 +101,17 @@ function App() {
         <IntroPage onProceed={handleIntroProceed} />
       ) : meditationText ? (
         <div style={{ textAlign: 'center', padding: '20px 0' }}>
-          <button className="btn btn-primary mb-2" onClick={handleTogglePlay}>
-            {isPlaying ? 'Pause Meditation' : 'Play Meditation'}
+          <button className="btn-play mb-2" onClick={handleTogglePlay}>
+            {isPlaying
+              ? <i className="bi bi-pause"></i>
+              : <i className="bi bi-play"></i>
+            }
           </button>
           <br />
-          <button className="btn btn-secondary" onClick={handleRestart}>
-            Restart Form
+          <button className="btn btn-secondary mt-3" onClick={handleRestart}>
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="#1E88E5" />
+            </svg>
           </button>
         </div>
       ) : (

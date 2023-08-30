@@ -140,8 +140,32 @@ body, h1, h2, h3, h4, h5, h6, p {
   }
 }
 
+.btn-play {
+  background-color: #E3F2FD; /* Light blue background */
+  color: #1E88E5; /* Dark blue text/icon color */
+  border: none;
+  margin: 0 auto; /* Center the button */
+  padding: 10px 20px; /* Sufficient padding for visual comfort */
+  border-radius: 5px; /* Rounded edges for a softer look */
+  font-size: 1.2rem; /* Ensures the icon size is reasonable */
+  transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+.btn-play:hover {
+  background-color: #BBDEFB; /* Slightly darker shade on hover */
+}
 
 
+.btn-secondary {
+  background-color: #E3F2FD; /* Light blue for contrast */
+  color: #1E88E5; /* A contrasting dark blue */
+  border: none;
+  margin: 0 auto; /* Center the button */
 
+  
+}
 
-
+.btn-secondary:hover {
+  background-color: #BBDEFB; /* Slightly darker shade of light blue */
+  color: #1E88E5; /* A contrasting dark blue */
+}
