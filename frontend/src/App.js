@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import IntroPage from './components/IntroPage';
 import MeditationPlayer from './MeditationPlayer';
@@ -40,6 +40,20 @@ function App() {
     setMethodChoice('none');
   };
 
+  useEffect(() => {
+    const setVHProperty = () => {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+    // Call the function when the component mounts
+    setVHProperty();
+    // Add the event listener
+    window.addEventListener('resize', setVHProperty);
+
+    // Cleanup - remove the event listener when the component unmounts
+    return () => window.removeEventListener('resize', setVHProperty);
+  }, []);
+
 
 
   const showToast = (message) => {
@@ -52,6 +66,7 @@ function App() {
   const handleIntroProceed = () => {
     setShowIntro(false);
   };
+
 
   const handleSubmit = (e) => {
     if (e) e.preventDefault();
