@@ -19,7 +19,7 @@ Welcome to [ZenGen](https://zengen.netlify.app/), a unique meditation app that e
 
 - **Frontend**: React, Create React App
 - **Backend**: Flask
-- **Others**: Material Icons, Text-to-Speech API
+- **Others**: Bootstrap, Material Icons, Text-to-Speech API
 
 ## Getting Started
 
